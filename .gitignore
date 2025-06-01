@@ -1,4 +1,7 @@
-# Unity 빌드 결과물 제외
+# ========================
+# Unity 기본 무시 항목
+# ========================
+
 Library/
 Temp/
 Obj/
@@ -7,10 +10,10 @@ Builds/
 Logs/
 UserSettings/
 
-# VSCode 관련 파일 제외
+# VSCode
 .vscode/
 
-# MonoDevelop-Unity 자동 생성 파일 제외
+# MonoDevelop
 *.csproj
 *.unityproj
 *.sln
@@ -20,64 +23,76 @@ UserSettings/
 *.booproj
 *.svd
 
-# Unity 빌드 시 생성되는 파일 제외
+# Unity 자동 생성 파일
 *.pidb
 *.mdb
 *.opendb
 *.VC.db
 
-# 라이선스 파일 및 설정 제외
+# 라이선스 및 IDE 설정
 .idea/
 *.tmproj
 
-# Unity 자동 생성 파일 제외
+# macOS
 .DS_Store
+._*
+
+# Windows
 Thumbs.db
+ehthumbs.db
+
+# Unity Play Mode 테스트 결과
+Assets/Scenes/*.unity.meta
+
+# Log
+*.log
+*.log.*
+
+# ========================
+# Firebase 관련 제외/포함
+# ========================
+
+# 전체 Firebase 폴더 제외
+Assets/Firebase/*
+
+# 그러나 반드시 필요한 일부는 포함 (예외 처리)
+!Assets/Firebase/FirebaseApp.unitypackage
+!Assets/Firebase/Plugins/
+!Assets/Firebase/Plugins/**/*.dll
+!Assets/Firebase/Plugins/**/*.aar
+!Assets/Firebase/Plugins/**/*.so
+!Assets/Firebase/Plugins/**/*.bundle
+!Assets/Firebase/Editor/**/*.cs
+
+# External Dependency Manager 생성 파일 무시
+Assets/Plugins/Android/Editor/GoogleVersionHandler.cs
+Assets/Plugins/Android/Editor/Google.*
+
+# Generated cache (Android Resolver)
+Assets/GeneratedLocalRepo/
+
+# ========================
+# 기타 빌드 파일 및 캐시
+# ========================
+
+*.apk
+*.aab
+*.dex
+*.so
+*.jar
+
+# Unity 빌드된 binary/asset bundle
+*.unitypackage
+*.bundle
+
+# ========================
+# 임시 에셋 제외
+# ========================
+
 *.bak
 *.asset
 *.prefs
 *.mode
 
-# Unity Play Mode 테스트 결과 제외
-Assets/Scenes/*.unity.meta
 
-# Log 파일 제외
-*.log
-*.log.*
-
-# macOS 관련 파일 제외
-.DS_Store
-._*
-
-# Windows 관련 파일 제외
-Thumbs.db
-eh
-
-# Firebase Unity SDK 관련 파일 무시
-Assets/Firebase/**/*.unitypackage
-Assets/Firebase/**/*.aar
-Assets/Firebase/**/*.jar
-Assets/Firebase/**/*.dll
-Assets/Firebase/Editor/**/*.cs
-Assets/GeneratedLocalRepo/
-
-# Google External Dependency Manager 생성 파일
-Assets/Plugins/Android/Editor/GoogleVersionHandler.cs
-Assets/Plugins/Android/Editor/Google.*
-
-# 기타 빌드된 캐시 파일 무시 (필요시)
-*.apk
-*.aab
-*.dex
-*.so
-
-# Firebase SDK 내부 패키지 루트 경로 무시
-Assets/Firebase/*
-!Assets/Firebase/FirebaseApp.unitypackage  # 필요 시 일부 예외 처리
-Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_9_0.bundle
-Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_9_0.so
-
-# Firebase 용량 초과 바이너리 무시
-Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_9_0.so
-Assets/Firebase/Plugins/x86_64/FirebaseCppApp-12_9_0.bundle
-
+.vs/

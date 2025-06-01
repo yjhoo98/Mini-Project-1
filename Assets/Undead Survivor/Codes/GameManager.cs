@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Firebase.Database;
 
 public class GameManager : MonoBehaviour
 {
@@ -26,55 +25,23 @@ public class GameManager : MonoBehaviour
     public Result uiResult;
     public Transform UiJoy;
     public GameObject enemyCleaner;
-    private void Awake()
+    
+    public void Awake()
     {
         Instance = this;
         Application.targetFrameRate = 60;
     }
-    public string cachedUid;
-    public int cachedCharacterId;
-    public void SetUser(string uid)
+    public void GameStart(int id)
     {
-        cachedUid = uid;
-    }
-
-    public void SetCharacterId(int id)
-    {
-        cachedCharacterId = id;
-    }
-    public void GameStart()
-    {
-        playerId = cachedCharacterId;
+        playerId = id;
         health = maxHealth;
 
         player.gameObject.SetActive(true);
-        uiLevelUp.Select(playerId);
+        
+        uiLevelUp.Select(playerId % 2);
         Resume();
-
-        SaveUserData(cachedUid);
-    }
-
-
-    public void SaveUserData(string uid)
-    {
-        FirebaseDatabase db = FirebaseDatabase.GetInstance("https://undeadsurvivor-77af8-default-rtdb.firebaseio.com/");
-
-        Dictionary<string, object> data = new Dictionary<string, object>
-    {
-        { "level", level },
-        { "kill", kill },
-        { "exp", exp },
-        { "maxHealth", maxHealth },
-        { "playerId", playerId }
-    };
-
-        db.RootReference.Child("users").Child(uid).UpdateChildrenAsync(data).ContinueWith(task =>
-        {
-            if (task.IsFaulted)
-                Debug.LogError("? Save Failed: " + task.Exception);
-            else
-                Debug.Log("? User data saved");
-        });
+        AudioManager.instance.PlayBgm(true);
+        AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
     }
     public void GameOver()
     {
@@ -156,3 +123,6 @@ public class GameManager : MonoBehaviour
         UiJoy.localScale = Vector3.one;
     }
 }
+
+
+
